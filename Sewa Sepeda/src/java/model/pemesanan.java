@@ -88,12 +88,12 @@ public class pemesanan {
     }
     
     public String toDelete () {
-        return "DELETE FROM sementara_pesan "
+        return "DELETE FROM sementara "
                 + "WHERE kode='" + kdbarang + "'";
     }
     
     public String toInsert() {
-        return " INSERT INTO sementara_pesan VALUES ('"
+        return " INSERT INTO sementara VALUES ('"
                 + nopesan + "','"
                 + kdbarang + "','"
                 + qty + "','"

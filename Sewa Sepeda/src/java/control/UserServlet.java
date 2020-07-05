@@ -19,11 +19,12 @@ public class UserServlet extends pesan {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             String aksi = request.getParameter("aksi");
+            String id=request.getParameter("id");
             String iduser=request.getParameter("iduser");
-            String nmuser=request.getParameter("nmuser");
+            String namauser=request.getParameter("namauser");
             String hakakses=request.getParameter("hakakses");
             String password=request.getParameter("password");
-            user var = new user(iduser,nmuser,hakakses,password);
+            user var = new user(id, iduser, namauser, hakakses, password);
             String URL = "beranda.jsp?halaman=tampiluser&aksi=SIMPAN";
             if(aksi.equals("SIMPAN")) {
                 out.print(super.proses(var.toInsert(), URL, "SIMPAN"));

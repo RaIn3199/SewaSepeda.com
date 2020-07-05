@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="859bf5e2-112e-45f6-85fa-2c9782bc39f2">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="alamat" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     customer.`kd_cust` AS customer_kd_cust,
+     customer.`nm_cust` AS customer_nm_cust,
+     customer.`alamat` AS customer_alamat,
+     customer.`telpon` AS customer_telpon
+FROM
+     `customer` customer
+WHERE
+alamat=$P{alamat}]]>
+	</queryString>
+	<field name="customer_kd_cust" class="java.lang.String"/>
+	<field name="customer_nm_cust" class="java.lang.String"/>
+	<field name="customer_alamat" class="java.lang.String"/>
+	<field name="customer_telpon" class="java.lang.String"/>
+	<variable name="customer_kd_cust_1" class="java.lang.Integer" resetType="Column" calculation="Count">
+		<variableExpression><![CDATA[$F{customer_kd_cust}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="161" splitType="Stretch">
+			<staticText>
+				<reportElement x="43" y="11" width="330" height="50" uuid="b14e0d7f-0621-4074-bd29-7d0056e50ec5"/>
+				<textElement>
+					<font fontName="Comic Sans MS" size="28" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SewaSepeda.com]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="195" y="61" width="263" height="39" uuid="73e1aca2-388a-41e4-b5e3-6ed45f2166e6"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Tempus Sans ITC" size="26"/>
+				</textElement>
+				<text><![CDATA[Sewa Sepeda Pasti Beres]]></text>
+			</staticText>
+			<image>
+				<reportElement x="551" y="7" width="220" height="93" uuid="a4eb1211-a2f7-4d7f-91ce-5c06aa2a0b85"/>
+				<imageExpression><![CDATA["C:\\Users\\ASUS\\Pictures\\spd.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="294" y="127" width="197" height="34" uuid="b5920565-d907-4664-b3d4-97a3639f9b35"/>
+				<textElement textAlignment="Justified">
+					<font fontName="SansSerif" size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Laporan Customer]]></text>
+			</staticText>
+			<line>
+				<reportElement x="26" y="116" width="760" height="1" uuid="11a4d584-ca83-4bbc-9417-63f6eadfce79"/>
+			</line>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="1" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="46" splitType="Stretch">
+			<staticText>
+				<reportElement x="26" y="21" width="100" height="20" uuid="be39b680-0392-4a36-9436-1a504b32aef4"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Kode Customer]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="239" y="21" width="100" height="20" uuid="5d3c68e8-03e8-4a9f-a8ef-6b6d88aaed3b"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nama Customer]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="439" y="21" width="100" height="20" uuid="8c1b5c77-547c-46ca-a1c2-dd85f7b7bd9d"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Alamat]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="633" y="21" width="100" height="20" uuid="4622ec81-0695-4579-a58d-929b9b0c1976"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Telephone]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="26" splitType="Stretch">
+			<textField>
+				<reportElement x="26" y="0" width="158" height="20" uuid="1e9edc57-d55d-4f96-8b95-bf91e2272cc2"/>
+				<textFieldExpression><![CDATA[$F{customer_kd_cust}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="239" y="0" width="121" height="20" uuid="4babc38b-8ec0-4521-9688-66e64601c5ed"/>
+				<textFieldExpression><![CDATA[$F{customer_nm_cust}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="439" y="0" width="100" height="20" uuid="ee6dc5b1-630c-493f-a71e-f9dc5c9d6f4b"/>
+				<textFieldExpression><![CDATA[$F{customer_alamat}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="633" y="0" width="100" height="20" uuid="b2d9f4e6-7424-4a3f-a784-5c0c3b2cd453"/>
+				<textFieldExpression><![CDATA[$F{customer_telpon}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<staticText>
+				<reportElement x="26" y="12" width="100" height="20" uuid="7b924b1c-0f34-4257-9e4f-8c2c90a46bcf"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Customer]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="126" y="12" width="140" height="20" uuid="7c951052-4098-4348-a63a-a65b9dfa147c"/>
+				<textFieldExpression><![CDATA[$V{customer_kd_cust_1}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

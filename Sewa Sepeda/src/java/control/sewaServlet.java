@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package control;
 
 import java.io.IOException;
@@ -11,84 +6,123 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import model.sewasepeda;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class sewaServlet extends HttpServlet {
-protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLException, ClassNotFoundException{
+
+    
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        sewasepeda sewa = new sewasepeda();
-        koneksi kon = new koneksi ();
-        PreparedStatement pstmt= null;
-        int result = 0;
-        try (PrintWriter out = response.getWriter())
-        {
-            String aksi = request.getParameter("aksi");
-            if (aksi != null)
-            {
-                sewa.setKodekm(request.getParameter("kodekm"));
-                sewa.setNama(request.getParameter("nama"));
-                sewa.setJk(request.getParameter("jk"));
-                sewa.setAlamat(request.getParameter("alamat"));
-                switch (aksi)
-                {
-                    case "simpan":
-                        pstmt=kon.conn.prepareStatement("INSERT INTO sewaspd values ('"+sewa.getKodekm()+"','"
-                        +sewa.getNama()+"','"
-                        +sewa.getJk()+"','"
-                        +sewa.getAlamat()+"','");
-                        
-                        result = pstmt.executeUpdate();
-                        if (result>0){
-                            out.println("<script>"
-                            + "alert ('Data telah ditambahkan');"
-                            + "document.location='member_sewa.jsp?hal=tampil-sewa';"
-                            + "</script>");
-                        }
-                        break;
-                    case "Delete":
-                        pstmt=kon.conn.prepareStatement("DELETE FROM sewaspd WHERE kodekm= '"+sewa.getKodekm()+"'");
-                        result = pstmt.executeUpdate();
-                        if (result > 0){
-                            out.println("<script>"
-                            + "alert ('Data telah dihapus');"
-                            + "document.location='member_sewa.jsp?hal=tampil-sewa';"
-                            + "</script>");
-                        }
-                        break;
-                        case "Update":
-                        pstmt=kon.conn.prepareStatement("UPDATE sewaspd SET nama='"
-                        +sewa.getNama()+"',jenis_kelamin='"
-                        +sewa.getJk()+"',alamat='"
-                        +sewa.getAlamat()+"'where kodekm='"
-                        +sewa.getKodekm()+"'");
-                        
-                        result = pstmt.executeUpdate();
-                        if (result > 0){
-                            out.println("<script>"
-                            + "alert ('Data telah diubah');"
-                            + "document.location='member_sewa.jsp?hal=tampil-sewa';"
-                            + "</script>");
-                        }
-                        default:
-                            break;
-                }
-                
-            }
-            else
-            {
-                out.println("<script>"
-                            + "alert ('Gagal Eksekusi');"
-                            + "document.location='input_sewa.jsp';"
-                            + "</script>");
-            }
+        try (PrintWriter out = response.getWriter()) {
+           String no = request.getParameter("no");
+           String nof = request.getParameter("nof");
+           String tgl = request.getParameter("tgl");
+           String nopes = request.getParameter("nopes");
+           String kodebarang = request.getParameter("kodebarang");
+           String total = request.getParameter("total");
+           String aksi = request.getParameter("aksi");
+           String sql = "";
+           String sql2 = "";
+           switch(aksi){
+               case "Delete":
+               sql = "DELETE FROM sementara WHERE kode='" + kodebarang + "'";
+               break;
+               case "Simpan":
+               sql = "INSERT INTO sewa VALUES('"
+                       + no + "','"
+                       + tgl + "','"
+                       + nof + "','"
+                       + total + "','"
+                       + nopes + "')";
+               break;
+               case "Cancel":
+                   sql = "TRUNCATE TABLE sewa";
+                   break;
+           }
+           boolean eror = false;
+           koneksi kon = new koneksi();
+           koneksi kon2 = new koneksi();
+           if(aksi.equals("Tambah")){
+               sql2="SELECT * FROM detail_pesan where "
+                       + "no_pesan='" + nopes + "'";
+               ResultSet rs = kon.ambilData(sql2);
+               while(rs.next()){
+                   sql2 = "INSERT INTO sementara VALUES('"
+                           + rs.getString(1) + "','"
+                           + rs.getString(2) + "',"
+                           + rs.getString(3) + ","
+                           + rs.getString(4) + ")";
+                   try {
+                           kon2.stmt.executeUpdate(sql2);
+                   } catch (Exception ex) {
+                       eror= true;
+                   }
+               }
+           } else 
+               if(!aksi.equals("Simpan")){
+                   try {
+                       kon.stmt.executeUpdate(sql);
+                   } catch (Exception ex){
+                       eror= true;
+                   }
+               } else {
+                   sql2="SELECT * FROM sementara";
+                   ResultSet rs = kon.ambilData(sql2);
+                   while(rs.next()){
+                       //tambahan ini
+                       sql = "INSERT INTO sewa VALUES ('"
+                               + no + "','"
+                               + tgl + "','"
+                               + nof + "','"
+                               + total + "','"
+                               + rs.getString(1) + "')";
+                       String sql1;
+                       sql1= "UPDATE barang SET stok = stok +"
+                               + rs.getString(3)
+                               + " WHERE kd_brg='"
+                               + rs.getString(2) + "'";
+                       //sampai sini
+                       sql2 = "INSERT INTO detail_sewa VALUES ('"
+                           + no + "','"
+                           + rs.getString(2) + "',"
+                           + rs.getString(3) + ","
+                           + rs.getString(4) + ")";
+                       try {
+                           kon2.stmt.executeUpdate(sql1);
+                           kon2.stmt.executeUpdate(sql2);
+                       } catch (Exception ex){
+                           eror= true;
+                       }
+                   }
+                   sql2 = "TRUNCATE TABLE sementara";
+                   if(!eror){
+                       try {
+                           kon.stmt.executeUpdate(sql);
+                           kon2.stmt.executeUpdate(sql2);
+                       } catch (Exception ex){
+                           eror= true;
+                       }
+                   }
+               }
+           if(!eror)
+               out.print("<script>"
+               + "alert('Data Berhasil di " + aksi + "');"
+               + "window.location='beranda.jsp?halaman=sewa';"
+               + "</script>");
+           else
+               out.print(sql+" "+sql2+"<script>"
+               + "alert('Data Gagal di " + aksi + "');" 
+               + "</script>");
+        } catch (SQLException ex){
+            Logger.getLogger(sewaServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(sewaServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-}
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -102,11 +136,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    try {
         processRequest(request, response);
-    } catch (SQLException | ClassNotFoundException ex) {
-        Logger.getLogger(sewaServlet.class.getName()).log(Level.SEVERE, null, ex);
-    }
     }
 
     /**
@@ -120,11 +150,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    try {
         processRequest(request, response);
-    } catch (SQLException | ClassNotFoundException ex) {
-        Logger.getLogger(sewaServlet.class.getName()).log(Level.SEVERE, null, ex);
-    }
     }
 
     /**

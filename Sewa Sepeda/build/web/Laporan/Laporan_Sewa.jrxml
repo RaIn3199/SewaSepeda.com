@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3067a485-763c-471c-a99d-30e29cf7b402">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="bln" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="thn" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     detail_sewa.`kd_brg` AS detail_sewa_kd_brg,
+     detail_sewa.`qty_sewa` AS detail_sewa_qty_sewa,
+     detail_sewa.`sub_sewa` AS detail_sewa_sub_sewa,
+     sewa.`no_sewa` AS sewa_no_sewa,
+     sewa.`tgl_sewa` AS sewa_tgl_sewa,
+     sewa.`no_faktur` AS sewa_no_faktur,
+     sewa.`total_sewa` AS sewa_total_sewa,
+     sewa.`no_pesan` AS sewa_no_pesan,
+     barang.`kd_brg` AS barang_kd_brg,
+     barang.`nm_brg` AS barang_nm_brg,
+     barang.`harga` AS barang_harga,
+     barang.`stok` AS barang_stok,
+     detail_sewa.`no_sewa` AS detail_sewa_no_sewa,
+date_format(sewa.`tgl_sewa`,'%M') AS bulan
+FROM
+     `detail_sewa` detail_sewa INNER JOIN `sewa` sewa ON detail_sewa.`no_sewa` = sewa.`no_sewa`
+     INNER JOIN `barang` barang ON detail_sewa.`kd_brg` = barang.`kd_brg`
+WHERE
+month(tgl_sewa)=$P{bln} and year(tgl_sewa)=$P{thn}]]>
+	</queryString>
+	<field name="detail_sewa_kd_brg" class="java.lang.String"/>
+	<field name="detail_sewa_qty_sewa" class="java.lang.Integer"/>
+	<field name="detail_sewa_sub_sewa" class="java.lang.Integer"/>
+	<field name="sewa_no_sewa" class="java.lang.String"/>
+	<field name="sewa_tgl_sewa" class="java.sql.Date"/>
+	<field name="sewa_no_faktur" class="java.lang.String"/>
+	<field name="sewa_total_sewa" class="java.lang.Integer"/>
+	<field name="sewa_no_pesan" class="java.lang.String"/>
+	<field name="barang_kd_brg" class="java.lang.String"/>
+	<field name="barang_nm_brg" class="java.lang.String"/>
+	<field name="barang_harga" class="java.lang.Integer"/>
+	<field name="barang_stok" class="java.lang.Integer"/>
+	<field name="detail_sewa_no_sewa" class="java.lang.String"/>
+	<field name="bulan" class="java.lang.String"/>
+	<variable name="detail_sewa_sub_sewa_1" class="java.lang.Integer" resetType="Group" resetGroup="sewa_no_sewa" calculation="Sum">
+		<variableExpression><![CDATA[$F{detail_sewa_sub_sewa}]]></variableExpression>
+	</variable>
+	<group name="sewa_no_sewa">
+		<groupExpression><![CDATA[$F{sewa_no_sewa}]]></groupExpression>
+		<groupHeader>
+			<band height="174">
+				<staticText>
+					<reportElement x="38" y="38" width="100" height="20" uuid="05cf08bf-30bb-443b-a869-23a88903917e"/>
+					<textElement>
+						<font fontName="Arial" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Tanggal Sewa]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="185" y="38" width="145" height="20" uuid="c5a9e3e3-d346-4c25-bcf4-dea6a0c72958"/>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{sewa_tgl_sewa}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="185" y="12" width="145" height="20" uuid="bb15cfc1-64ce-4412-8202-b0fa1464667b"/>
+					<textElement>
+						<font fontName="Arial" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{sewa_no_sewa}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="38" y="68" width="100" height="20" uuid="ad83cbaf-ebea-4ef4-ba26-b97ed5b15c8a"/>
+					<textElement>
+						<font fontName="Arial" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[sewa_no_faktur]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="185" y="68" width="145" height="20" uuid="22585ff9-5484-4cef-b682-9928b102a16e"/>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{sewa_no_faktur}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="38" y="12" width="100" height="20" uuid="b1bbb5bb-0f73-41d0-a699-1f447c621373"/>
+					<textElement>
+						<font fontName="Arial" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Nomor Sewa]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="38" y="98" width="100" height="20" uuid="7f4bdb55-cea8-4023-a2e9-d75680896704"/>
+					<textElement>
+						<font fontName="Arial" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[sewa_no_pesan]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="185" y="98" width="145" height="20" uuid="b03514c5-e481-41af-a97f-1970830360f5"/>
+					<textElement>
+						<font fontName="Arial" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{sewa_no_pesan}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="16" y="154" width="100" height="20" uuid="b975cf70-dfc1-4b69-b722-00b9030c85ed"/>
+					<textElement>
+						<font fontName="Arial" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Kode Sepeda]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="149" y="154" width="114" height="20" uuid="f911298b-7b2d-4172-8c8b-4719660c1c9f"/>
+					<textElement>
+						<font fontName="Arial" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Nama Paket Sewa]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="414" y="154" width="100" height="20" uuid="636e332b-b283-4688-b97f-51fc05c1fe9c"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Subtotal]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="285" y="154" width="100" height="20" uuid="be845347-3e42-4de6-8278-13afd5ebadae"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Quantity]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="50">
+				<textField evaluationTime="Group" evaluationGroup="sewa_no_sewa">
+					<reportElement x="414" y="10" width="100" height="20" uuid="90018a79-d457-4e91-8e4d-9c69626098f2"/>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{detail_sewa_sub_sewa_1}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="263" y="10" width="100" height="20" uuid="015ede03-ee77-4aa7-a7f9-34cef37c817b"/>
+					<textElement>
+						<font fontName="Arial" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Grand Total]]></text>
+				</staticText>
+				<line>
+					<reportElement x="16" y="39" width="528" height="1" uuid="b259a251-3554-4fe3-891f-c444f1b69ba2"/>
+				</line>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="181" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="330" height="50" uuid="777fa075-ed0c-4b35-81d9-78532fea8ede"/>
+				<textElement>
+					<font fontName="Comic Sans MS" size="28" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SewaSepeda.com]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="31" y="50" width="263" height="39" uuid="e3484566-6f4a-4a75-ba7a-dfe8b7b69ce1"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Tempus Sans ITC" size="24"/>
+				</textElement>
+				<text><![CDATA[Sewa Sepeda Pasti Beres]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="153" y="120" width="214" height="34" uuid="3c1c2f81-e323-4205-85e7-7d6642e2fcbb"/>
+				<textElement textAlignment="Justified">
+					<font fontName="SansSerif" size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Laporan Sewa Sepeda]]></text>
+			</staticText>
+			<image>
+				<reportElement x="367" y="-11" width="188" height="120" uuid="4c82f21b-8b70-4e46-afeb-742d9a7c265c"/>
+				<imageExpression><![CDATA["C:\\Users\\ASUS\\Pictures\\spd.jpg"]]></imageExpression>
+			</image>
+			<line>
+				<reportElement x="10" y="111" width="524" height="1" uuid="740951cd-546c-47d1-8d84-98f4022ac1e1"/>
+			</line>
+			<staticText>
+				<reportElement x="153" y="154" width="52" height="20" uuid="10f8a7ae-813a-47e9-824c-48918e0d056a"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bulan]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="294" y="154" width="36" height="20" uuid="9cf726f1-cd5c-4edf-9d7e-18d2a9510cdb"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tahun]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="346" y="154" width="100" height="20" uuid="5b188ff0-9163-4c46-a966-a02fbdd7d157"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{thn}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="205" y="154" width="100" height="20" uuid="de72858f-b8ef-4805-8294-c668a75f4886"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{bulan}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="42" splitType="Stretch">
+			<textField>
+				<reportElement x="16" y="7" width="100" height="20" uuid="dfb19d56-f42c-408c-80c8-99f6a0c4d492"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{detail_sewa_kd_brg}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="285" y="7" width="100" height="20" uuid="20836f5a-d230-47ad-897d-a22cb3627db9"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{detail_sewa_qty_sewa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="149" y="7" width="100" height="20" uuid="875381cf-d3d1-4820-9134-ee658292ddef"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{barang_nm_brg}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="414" y="7" width="100" height="20" uuid="f7ff28b0-9e5e-4f1f-bdc9-7ca73e82faab"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{detail_sewa_sub_sewa}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="4" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="9" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

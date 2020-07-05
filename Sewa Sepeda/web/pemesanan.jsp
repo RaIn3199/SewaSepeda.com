@@ -24,7 +24,7 @@
         </head>
         <body>
         <sql:query var="ttl" dataSource="${dataSource}">
-            SELECT SUM(quantity) AS ttl_D, SUM(subtotal) AS ttl_K FROM sementara_pesan
+            SELECT SUM(quantity) AS ttl_D, SUM(subtotal) AS ttl_K FROM sementara
         </sql:query>
             <h1>Transaksi Pemesanan Barang</h1></br>
             <table border="0">
@@ -88,7 +88,7 @@
                     <th>AKSI</th>
                 </tr>
                 <%
-                    rs = kon.stmt.executeQuery("SELECT * from sementara_pesan");
+                    rs = kon.stmt.executeQuery("SELECT * from sementara");
                     while (rs.next()) {
                         out.println("<tr class=isi>"
                                 + "<td>" + rs.getString(2) + "</td>"

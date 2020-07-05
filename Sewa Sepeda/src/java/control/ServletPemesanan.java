@@ -57,14 +57,14 @@ public class ServletPemesanan extends pesan {
                 pemesanan.setKdcust(request.getParameter("customer"));
                 pemesanan.setTotal(request.getParameter("tobay"));
                 pstmt=kon.conn.prepareStatement("INSERT detail_pesan SELECT '"+pemesanan.getNopesan()+"',"
-                        + "kode,quantity,subtotal FROM sementara_pesan");
+                        + "kode,quantity,subtotal FROM sementara");
                 result=pstmt.executeUpdate();
                 pstmt1 = kon.conn.prepareStatement("INSERT INTO pemesanan values('" + pemesanan.getNopesan() + "','"
                         + pemesanan.getTglpesan() + "','"
                         + pemesanan.getTotal() + "','"
                         + pemesanan.getKdcust() + "')");
                 result1 = pstmt1.executeUpdate();
-                pstmt2 = kon.conn.prepareStatement("TRUNCATE TABLE sementara_pesan");
+                pstmt2 = kon.conn.prepareStatement("TRUNCATE TABLE sementara");
                 result2=pstmt2.executeUpdate();
                     if (result +result1 + result2 > 0) {
                         out.println("<script> "

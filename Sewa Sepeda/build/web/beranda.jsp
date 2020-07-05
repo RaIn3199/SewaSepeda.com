@@ -27,29 +27,32 @@
                     <li><a href="beranda.jsp?halaman=about">About</a></li>
                     <li><a href="beranda.jsp?halaman=kontak">Contact Us</a></li>
                     <li><a href="beranda.jsp?halaman=menu">Menu Sewa</a></li>
-                    <li><a href="beranda.jsp?halaman=dataPeg">Change Password</a></li> 
-                    <li><a href="beranda.jsp?halaman=logout">Logout</a></li>
+                    <li><a href="indexspd.jsp">Logout</a></li>
                 </ul>
             </div><%-- akhir dari menu atas --%>
             <div id="content"><%-- awal dari isi content --%>
                 <div class="left"> <%-- awal dari content sebelah kiri web --%>
                     <h2>Master Data</h2>
                     <ul>
-                        <li><a href="beranda.jsp?halaman=tampilbrg&aksi=SIMPAN">Data Barang</a></li>
+                        <li><a href="beranda.jsp?halaman=tampilbrg&aksi=SIMPAN">Data Sepeda</a></li>
                         <li><a href="beranda.jsp?halaman=tampilcus&aksi=SIMPAN">Data Customer</a></li>
                         <li><a href="beranda.jsp?halaman=tampilakun&aksi=SIMPAN">Data Akun</a></li>
                         <li><a href="beranda.jsp?halaman=tampiluser&aksi=SIMPAN">Data User</a></li>
                     </ul>
                     <h2> Transaksi</h2>
                     <ul>
-                        <li><a href="beranda.jsp?halaman=pesan">Pemesanan</a></li>
+                        <li><a href="beranda.jsp?halaman=pesan"> Transaksi Pemesanan</a></li>
+                        <li><a href="beranda.jsp?halaman=sewa">Transaksi Penyewaan</a></li>
                         <li><a href="beranda.jsp?halaman=retursewa">Retur Penyewaan</a></li>
                     </ul>
                     
                     <h2>Laporan</h2>
                     <ul>
-                        <li><a href="lap_sewa.jsp">Laporan Member Rental</a></li>
-                        <li><a href="lap_pay.jsp">laporan Payment</a></li>
+                        <li><a href="beranda.jsp?halaman=cetaklapbarang">Laporan Data Sepeda</a></li>
+                        <li><a href="beranda.jsp?halaman=cetaklapcust">laporan Data Customer</a></li>
+                        <li><a href="beranda.jsp?halaman=cetaklappemesanan">laporan Data Pemesanan</a></li>
+                        <li><a href="beranda.jsp?halaman=cetaklapsewa">laporan Data Penyewaan</a></li>
+                        <li><a href="beranda.jsp?halaman=cetaklapretur">laporan Data Retur Penyewaan</a></li>
                     </ul>
                     <div class="box" align="justify">
                     <div class="subtitle">Date and Time</div>
@@ -60,16 +63,25 @@
                 <div class="box" align="justify">
                     <div class="subtitle">About this website</div>
                     <marquee behavior="scroll" direction="up" scrollamount="5">
-                        SISTEM INFORMASI AKUNTANSI UNIVERSITAS BSI APLIKASI PEMBELIAN
+                        SISTEM INFORMASI AKUNTANSI UNIVERSITAS BSI APLIKASI SEWA SEPEDA
                     </marquee>
                 </div>
                 <div class="box">
                     <div class="subtitle">About this website</div>
-                    <marquee direction="down" height="200" behavior="alternate">
-                        <marquee marquee behavior="alternate">
-                            SISTEM INFORMASI AKUNTANSI<br>UNIVERSITAS BSI<br>APLIKASI PEMBELIAN
-                        </marquee>
-                    </marquee>
+                    <marquee behavior="scroll" direction="up" scrollamount="5">
+                            MEMBER OF SEWASEPEDA.COM :
+                            <br>
+                            * RAHMA INDRIANI
+                            <br>
+                            * SITI FATIMAH
+                            <br>
+                            * CHAIRUL FIKRI AZIS
+                            <br>
+                            * PUTRI NURWULAN SARI
+                            <br>
+                            * FIKRI AULIAN HAIKAL
+                            <br>
+                            </marquee>
                 </div>
                 </div><%-- akhir dari content sebelah kiri web --%>
                 
@@ -118,6 +130,27 @@
                         </c:when>
                         <c:when test="${param.halaman=='retursewa'}">
                             <%@include file="retur.jsp" %>
+                        </c:when>
+                        <c:when test="${param.halaman=='sewa'}">
+                            <%@include file="penyewaan.jsp" %>
+                        </c:when>
+                        <c:when test="${param.halaman=='cetaklapbarang'}">
+                            <%@include file="CetakLaporanBarang.jsp" %>
+                        </c:when>
+                        <c:when test="${param.halaman=='cetaklapcust'}">
+                            <%@include file="CetakLaporanCustomer.jsp" %>
+                        </c:when>
+                        <c:when test="${param.halaman=='cetaklappemesanan'}">
+                            <%@include file="CetakLaporanPemesanan.jsp" %>
+                        </c:when>
+                        <c:when test="${param.halaman=='cetaklapsewa'}">
+                            <%@include file="CetakLaporanSewa.jsp" %>
+                        </c:when>
+                        <c:when test="${param.halaman=='cetaklapretur'}">
+                            <%@include file="CetakLaporanRetur.jsp" %>
+                        </c:when>
+                        <c:when test="${param.halaman=='logout'}">
+                            <%@include file="indexspd.jsp" %>
                         </c:when>
                         <c:otherwise>
                             <%@include file="homespd.jsp" %>
